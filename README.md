@@ -34,6 +34,7 @@ At this point, we realized we had to return to basics and focus on interactions 
 We first sought to replicate the experience of a rotary phone with a circular-touch Phidget. The problem here was that our computers failed to recognize the device and all attempts to resolve this failed. It also did not evoke the experience and vintage flair that people would get from using a rotary phone. We then turned our attention to the online market places of eBay, Craigslist, and Kijiji. Eventually, we found a vintage rotary phone on Kijiji for twenty dollars, sold locally by a man who went only by the name Dan. He advertised himself as “The best store online.” This was the phone for us. 
 
 We quickly bought the phone and took it back to Bill Turkel’s lab to take it apart and begin our build. At this point, we had just two classes left to complete the project.
+
 The Build
 
 Step 1: Deconstruct the phone to isolate the rotary dialer.
