@@ -1,0 +1,130 @@
+/*
+
+Thanks to Tim Pulver whose work layed the foundation for the code used for the Processing portion of this project,
+We found his work online @ https://gist.github.com/zzzunaaa/f9796a0ed6a557cb3055ba6a14591447
+
+This code allows Arduino to talk to Processing via Serial Communication and calls to action a stored audio file in response to Arduino's request
+
+*/
+
+import processing.serial.*;
+import ddf.minim.*;
+
+Minim minim;
+AudioPlayer player0;
+AudioPlayer player1;
+AudioPlayer player2;
+AudioPlayer player3;
+AudioPlayer player4;
+AudioPlayer player5;
+AudioPlayer player6;
+AudioPlayer player7;
+AudioPlayer player8;
+AudioPlayer player9;
+
+int lf = 10;    // Linefeed in ASCII
+String myString = null;
+Serial myPort;  // The serial port
+int sensorValue = 0;
+
+void setup() {
+  // List all the available serial ports
+  printArray(Serial.list());
+  // Open the port you are using at the rate you want:
+  myPort = new Serial(this, Serial.list()[0], 9600);
+  myPort.clear();
+  // Throw out the first reading, in case we started reading 
+  // in the middle of a string from the sender.
+  myString = myPort.readStringUntil(lf);
+  myString = null;
+  // we pass this to Minim so that it can load files from the data directory
+  minim = new Minim(this);
+  // loadFile will look in all the same places as loadImage does.
+  // this means you can find files that are in the data folder and the 
+  // sketch folder. you can also pass an absolute path, or a URL.
+  // Change the name of the audio file here and add it by clicking on "Sketch —> Import File"
+  player1 = minim.loadFile("1971 - Three Dog Night   Joy To The World - EDITED.mp3");
+  player2 = minim.loadFile("1972 - Roberta Flack - First Time Ever I Saw Your Face - EDITED.mp3");
+  player3 = minim.loadFile("1973 - Tony Orlando  Dawn - Tie a Yellow Ribbon Round the Ole Oak Tree - EDITED.mp3");
+  player4 = minim.loadFile("1974 - Barbra Streisand - The Way We Were - EDITED.mp3");
+  player5 = minim.loadFile("1975 - Captain  Tennille - Love Will Keep Us Together - EDITED.mp3");
+  player6 = minim.loadFile("1976 - Paul McCartney  Wings - EDITED.mp3");
+  player7 = minim.loadFile("1977 - Debby Boone - You light up my Life - EDITED.mp3");
+  player8 = minim.loadFile("1978 - Andy Gibb   Shadow Dancing - EDITED.mp3");
+  player9 = minim.loadFile("1979 - The Knack - My Sharona - EDITED.mp3");
+  player0 = minim.loadFile("1970 - Simon and Garfunkel - Bridge Over Troubled Water - EDITED.mp3");
+}
+
+void draw() {
+  // check if there is something new on the serial port
+  while (myPort.available() > 0) {
+    // store the data in myString 
+    myString = myPort.readStringUntil(lf);
+    // check if we really have something
+    if (myString != null) {
+      myString = myString.trim(); // let's remove whitespace characters
+      // if we have at least one character...
+      if(myString.length() > 0) {
+        println(myString); // print out the data we just received
+        // if we received a number (e.g. 123) store it in sensorValue, we sill use this to change the background color. 
+        try {
+          //sensorValue = Integer.parseInt(myString);
+          // As the range of an analog sensor is between 0 and 1023, we need to 
+          // convert it in order to use it for the background color brightness
+         // int brightness = (int)map(sensorValue, 0, 1023, 0, 255);
+          //background(brightness);
+        } catch(Exception e){}
+        if(myString.equals("0")){
+          if(player0.isPlaying() == false){
+            player0.play();
+          }
+        }
+        if(myString.equals("1")){
+          if(player1.isPlaying() == false){
+            player1.play();
+          }
+        }
+        if(myString.equals("2")){
+          if(player2.isPlaying() == false){
+            player2.play();
+          }
+        }
+        if(myString.equals("3")){
+          if(player3.isPlaying() == false){
+            player3.play();
+          }
+        }
+        if(myString.equals("4")){
+          if(player4.isPlaying() == false){
+            player4.play();
+          }
+        }
+        if(myString.equals("5")){
+          if(player5.isPlaying() == false){
+            player5.play();
+          }
+        }
+        if(myString.equals("6")){
+          if(player6.isPlaying() == false){
+            player6.play();
+          }
+        }
+        if(myString.equals("7")){
+          if(player7.isPlaying() == false){
+            player7.play();
+          }
+        }
+        if(myString.equals("8")){
+          if(player8.isPlaying() == false){
+            player8.play();
+          }
+        }
+        if(myString.equals("9")){
+          if(player9.isPlaying() == false){
+            player9.play();
+          }
+        }
+      }
+    }
+  }
+}
